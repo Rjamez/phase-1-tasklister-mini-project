@@ -1,37 +1,68 @@
-html {
+:root {
+  --primary-bg: linear-gradient(rgb(0, 0, 0), violet);
+  --card-bg: rgba(255, 255, 255, 0.75);
+  --border-color: #333;
+  --button-bg: #f3f3f3;
+  --button-hover-bg: #e1e1e1;
+  --font-family: "Titillium Web", sans-serif;
+}
+
+html, body {
   height: 100%;
   width: 100%;
-  font-family: "Titillium Web", sans-serif;
+  font-family: var(--font-family);
 }
 
 body {
-  min-height: 100%;
-  min-width: 100%;
-  background: linear-gradient(pink, violet);
+  background: var(--primary-bg);
 }
 
-button {
-  font-size: 7px;
+button, input[type="submit"], input[type="reset"] {
+  font-size: 14px; /* Increased font size */
+  padding: 10px 15px; /* Added padding for better click area */
+  border: none; /* Removing default border */
+  border-radius: 5px; /* Rounded corners cause i think it looks nice */
+  background: var(--button-bg);
+  transition: background 0.3s ease; /* Smooth background transition from w3 schools */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+button:hover, input[type="submit"]:hover, input[type="reset"]:hover {
+  background: var(--button-hover-bg); /* Change background on hover not sure if i did it right */
 }
 
 #main-content {
-  position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  border: 1px solid #333;
+  align-items: center;
+  border: 1px solid var(--border-color);
   background: rgba(255, 255, 255, 0.3);
-  padding: 15px 20px 18px 18px;
+  padding: 20px;
   border-radius: 5px;
-  box-shadow: 2px 5px 5px #333;
+  box-shadow: 2px 5px 5px var(--border-color);
+  max-width: 600px; /* Limit width for larger screens */
+  margin: auto; /* Center align */
 }
 
 #list {
-  margin: 10px;
-  border: 1px solid #333;
-  background: rgba(255, 255, 255, 0.75);
-  padding: 15px 20px 18px 18px;
+  margin: 10px 0; /* Vertical margin */
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  padding: 15px;
   border-radius: 5px;
-  box-shadow: 2px 5px 5px #333;
+  box-shadow: 2px 5px 5px var(--border-color);
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 600px) {
+  button, input[type="submit"], input[type="reset"] {
+    font-size: 12px; /* Smaller font size for smaller screens */
+    padding: 8px 10px; /* Adjust padding */
+  }
+}
+
+@media (min-width: 601px) {
+  #main-content {
+    padding: 30px; /* More padding for larger screens */
+  }
 }
