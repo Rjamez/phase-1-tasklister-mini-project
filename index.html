@@ -17,7 +17,8 @@
       <h2 id="task-form-label" class="visually-hidden">Create a new task</h2>
       <label for="new-task-description">Task description:</label>
       <input type="text" id="new-task-description" name="new-task-description" placeholder="Description" required>
-
+      <br>
+      <br>
       <label for="priority-select">Priority:</label>
       <select id="priority-select" name="priority">
         <option value="low">Low</option>
@@ -25,23 +26,24 @@
         <option value="high">High</option>
       </select>
       <br><br>
-      <label for="due date">Due Date:</label>
-      <input type="date" id="due date" name="due-date">
-      <br><br>
+      <label for="due-date">Due Date:</label>
+      <input type="date" id="due-date" name="due-date">
+      <br>
+      <br>
       <input type="submit" value="Create New Task">
       <input type="reset" value="Clear">
     </form>
-      <br><br>
-    <button id="sort-tasks">Sort tasks</button>
-
+     <br><br>
+    <button id="sort-tasks" type="button">Sort tasks</button>
+     <br><br>
     <section id="list">
       <h2>My Todos:</h2>
-      <ul id="tasks" role="list">
+      <ul id="tasks">
+        <!-- Task items will be dynamically generated here -->
       </ul>
     </section>
 
-    <script src="./src/index.js"  defer></script>
+    <script src="./src/index.js" defer></script>
   </main>
 </body>
 </html>
-
