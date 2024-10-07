@@ -11,6 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Event listener for form submission
     taskForm.addEventListener("submit", (event) => {
         event.preventDefault();
+        if (taskInput.value.trim() === "") {
+            alert("Task description cannot be empty!");
+            return;
+        }
         addTask(taskInput.value, prioritySelect.value, dueDateInput.value);
         taskInput.value = "";
         dueDateInput.value = "";
@@ -23,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
             description,
             priority,
             dueDate,
-            completed: false, // Initialize completed state
+            completed: false,
         };
         tasks.push(task);
         renderTasks();
@@ -31,30 +35,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Function to render tasks
     function renderTasks() {
-        taskList.innerHTML = ""; // Clear existing tasks
+        taskList.innerHTML = "";
         tasks.forEach(task => {
             const li = document.createElement("li");
             li.textContent = `${task.description} (Due: ${task.dueDate})`;
             li.style.color = getPriorityColor(task.priority);
+            if (task.completed) {
+                li.style.textDecoration = "line-through"; // Strike-through for completed tasks
+            }
             li.id = task.id;
 
-            // Create checkbox
             const checkbox = document.createElement("input");
             checkbox.type = "checkbox";
-            checkbox.checked = task.completed; // Reflect completed state
+            checkbox.checked = task.completed;
             checkbox.addEventListener("change", () => {
-                task.completed = checkbox.checked; // Update completed state
-                renderTasks(); // Rerender tasks
+                task.completed = checkbox.checked;
+                renderTasks();
             });
             li.appendChild(checkbox);
 
-            // Edit button
             const editButton = document.createElement("button");
             editButton.textContent = "Edit";
             editButton.addEventListener("click", () => editTask(task.id));
             li.appendChild(editButton);
 
-            // Delete button
             const deleteButton = document.createElement("button");
             deleteButton.textContent = "Delete";
             deleteButton.addEventListener("click", () => deleteTask(task.id));
@@ -80,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
             taskInput.value = task.description;
             prioritySelect.value = task.priority;
             dueDateInput.value = task.dueDate;
-            deleteTask(taskId); // Remove the task before editing
+            deleteTask(taskId);
         }
     }
 
@@ -101,11 +105,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // Event listener for sorting tasks
     sortButton.addEventListener("click", () => {
         tasks.sort((a, b) => {
-            // Sorting primarily by priority, then by due date
-            if (a.priority === b.priority) {
-                return new Date(a.dueDate) - new Date(b.dueDate); // Sort by due date
+            const priorityOrder = { high: 1, medium: 2, low: 3 };
+            const priorityDiff = priorityOrder[a.priority] - priorityOrder[b.priority];
+            if (priorityDiff === 0) {
+                return new Date(a.dueDate) - new Date(b.dueDate);
             }
-            return a.priority.localeCompare(b.priority); // Sort by priority
+            return priorityDiff;
         });
         renderTasks();
     });
